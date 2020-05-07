@@ -1,19 +1,26 @@
-curl -X POST \
-  https://hotel.com/Createbooking \
--H 'Content-Type: application/json' \
-  -d '{
-    "firstname" : "Budi",
-    "lastname" : "Setiawan",
-    "price" : 10000,
-    "depositpaid" : true,
-    "bookingdates" : {
-        "checkin" : "2020-05-05",
-        "checkout" : "2020-05-07"
-    },
-    "additionalneeds" : "Breakfast"
-}'
+require 'selenium-webdriver'
+require 'rubygems'
+require 'rspec'
 
-curl -X DELETE \
-  https://hotel.com/Deletebooking \
-  -H 'Content-Type: application/json' \
-  -H 'Cookie: token=xyz'
+driver = Selenium::WebDriver.for:chrome
+
+Given("open the website") do
+  driver.navigate.to "https://hotel.com/booking/"
+end
+
+Then("user click on main menu") do
+    driver.find_element(:link,'Hotel').click
+    driver.find_element(:link,'Pricing').click
+    driver.find_element(:xpath,'//*[@id="main-menu"]/ul/li[3]/span/span').click
+    driver.find_element(:xpath,'//*[@id="main-menu"]/ul/li[4]/span/span').click
+    driver.find_element(:xpath,'//*[@id="main-menu"]/ul/li[5]/span/span').click
+    driver.find_element(:xpath,'//*[@id="main-menu"]/ul/li[6]/span/span').click
+    driver.find_element(:xpath,'//*[@id="main-menu"]/ul/li[7]/span/span').click
+    driver.find_element(:link,'Submit').click
+    sleep(2)
+end
+
+Then("user closing the browser") do
+    driver.quit
+end
+
