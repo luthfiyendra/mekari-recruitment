@@ -1,0 +1,44 @@
+#Sign In
+Given /^I am a user named "([^"]*)" with an email "([^"]*)" and password "([^"]*)"$/ do |name, email, password|
+  u = User.new(:name => name,
+               :email => email,
+               :password => password,
+               :password_confirmation => password)
+  u.skip_confirmation!
+  u.save!
+end
+
+
+When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
+  #Given %{I am not logged in}
+  When %{I go to the sign in page}
+  And %{I fill in "user_email" with "#{email}"}
+  And %{I fill in "user_password" with "#{password}"}
+  And %{I press "Log Me In"}
+end
+
+Then /^I should be signed in$/ do
+  Then %{I should see "Sign out"}
+end
+
+Then /^I should be signed in$/ do
+  Then %{I should see "Sign out"}
+end
+
+Then /^I sign out$/ do
+  visit('/account/logout')
+end
+
+#Sign Up
+Given I am on the landing page
+When I go to the registration page
+And I fill in "Firstname" with "F"
+And I fill in "Lastname" with "L"
+And I fill in "Country" with "C"
+And I fill in "State" with "S"
+And I fill in "City" with "C"
+And I fill in "Email" with "me@gmail.com"
+And I fill in "Password" with "password"
+And I fill in "Password Confirmation" with "password"
+And I press "Register"
+Then I should see "You have registered successfully. If enabled, a confirmation was sent your e-mail."
