@@ -1,0 +1,19 @@
+curl -X POST \
+  https://hotel.com/Createbooking \
+-H 'Content-Type: application/json' \
+  -d '{
+    "firstname" : "Budi",
+    "lastname" : "Setiawan",
+    "price" : 10000,
+    "depositpaid" : true,
+    "bookingdates" : {
+        "checkin" : "2020-05-05",
+        "checkout" : "2020-05-07"
+    },
+    "additionalneeds" : "Breakfast"
+}'
+
+curl -X DELETE \
+  https://hotel.com/Deletebooking \
+  -H 'Content-Type: application/json' \
+  -H 'Cookie: token=xyz'
